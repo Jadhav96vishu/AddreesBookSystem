@@ -1,0 +1,121 @@
+package task2;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Contact{
+
+	private String Name;
+	private String Number;
+	private String Address;
+
+	public Contact(String Name,String Number,String Address) {
+
+		this.Name =Name;
+		this.Number= Number;
+		this.Address =Address;	
+	}
+
+	public String getName() {
+		return Name;	
+	}
+	public String getNumber() {
+		return Address;
+	}
+	public String getAddress() {
+		return Address;
+	}
+
+	public String toString() {
+		return"Name: " +" "+ Name + "  Number: " + Number +"  Address: "+ Address;
+	}
+}
+
+class AddressBook{
+	private List<Contact> connection = new ArrayList<>();
+
+	public void addContact(Contact Contact) {
+		connection.add(Contact);
+		System.out.println("Contact As Been Added Succesfully");
+	}
+	public void Removecontact(String Name) {
+		connection.removeIf(Contact -> Contact.getName().equalsIgnoreCase(Name));
+		System.out.println("Contact has been removed");
+	}
+	public Contact SearchContact(String name) {
+		for (Contact Contact: connection) {
+			System.out.println(Contact);
+		}
+		return null;
+	}
+	public void displayAllContact() {
+		System.out.println("List all the Contacts: ");
+		for(Contact Contact: connection) {
+			System.out.println(Contact);
+		}
+	}
+}
+public class Main {
+	
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		AddressBook addressbk =new AddressBook();
+		System.out.println("   ");
+		while(true) {
+			System.out.println("1.Add a new Contact");
+			System.out.println("2.Remove contact");
+			System.out.println("3.Search a Contact");
+			System.out.println("4.Display all Contacts");
+			System.out.println("        ");
+			System.out.println("Enter your Choice");
+			int choice =sc.nextInt();
+			sc.nextLine();
+			System.out.println("       ");
+			
+			switch (choice) {
+			case 1:
+				System.out.println("name of the contact:");
+				String name = sc.nextLine();
+				System.out.println("Enter number ");
+				String Number = sc.nextLine();
+				System.out.println("address of individual:");
+				String address = sc.nextLine();
+						
+				Contact newContact = new Contact(name ,Number,address);
+				addressbk.addContact(newContact);
+				break;
+				
+			case 2:
+				System.out.println("enter the name of contact that need to be remove");
+				String ContactToRemove = sc.nextLine();
+				addressbk.Removecontact(ContactToRemove);
+				break;
+			case 3:
+				System.out.println("enter a name for search");
+				String ContactToSearch =sc.nextLine();
+				Contact foundContact = addressbk.SearchContact(ContactToSearch);
+				if(foundContact!=null) {
+					
+					System.out.println("contact has been found"+foundContact);
+				}
+				else {
+					System.out.println("Contact has not found");
+				}
+			break;
+			
+			case 4:
+				addressbk.displayAllContact();
+				break;
+			case 5:
+				System.out.println("Existing AddressBook");
+				sc.close();
+				System.exit(0);
+				default:
+					System.out.println("Invalid Choice");
+			
+			}
+		
+		}
+	}
+}
